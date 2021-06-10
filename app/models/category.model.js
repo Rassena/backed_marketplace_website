@@ -4,6 +4,8 @@ const sql = require("./db.js");
 const Category = function(category) {
   this.Name = category.Name;
   this.IconUrl = category.IconUrl;
+  this.Color = category.Color;
+
 };
 
 Category.create = (newCategory, result) => {
@@ -20,7 +22,7 @@ Category.create = (newCategory, result) => {
 };
 
 Category.findByName = (categoryName, result) => {
-  sql.query(`SELECT * FROM category WHERE name = ${categoryName}`, (err, res) => {
+  sql.query(`SELECT * FROM category WHERE name = "${categoryName}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -51,10 +53,27 @@ Category.getAll = result => {
   });
 };
 
+Category.getPage = (page,result) => {
+  onPage = 5;
+  sql.query(
+    "SELECT * FROM category LIMIT ? OFFSET ?",
+    [onPage, onPage*(parseInt(page)-1)],
+   (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("categorys: ", res);
+    result(null, res);
+  });
+};
+
 Category.updateByName = (name, category, result) => {
   sql.query(
-    "UPDATE category SET Name = ?, IconUrl = ?, WHERE name = ?",
-    [category.Name, category.IconUrl,name],
+    "UPDATE category SET Name = ?, IconUrl = ?, Color = ? WHERE name = ?",
+    [category.Name, category.IconUrl, category.Color, name],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

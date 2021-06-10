@@ -6,9 +6,12 @@ module.exports = app => {
   
     // Retrieve all Categorys
     app.get("/categorys", categorys.findAll);
+
+    //Retrieve n Categorys by page
+    app.get("/categorys/:page", categorys.getPage);
   
     // Retrieve a single Category with categoryName
-    app.get("/categorys/:categoryName", categorys.findOne);
+    //app.get("/categorys/:categoryName", categorys.findOne);
   
     // Update a Category with categoryName
     app.put("/categorys/:categoryName", categorys.update);

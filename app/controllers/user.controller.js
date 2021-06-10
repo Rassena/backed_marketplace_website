@@ -16,6 +16,7 @@ exports.create = (req, res) => {
       BirthDate: req.body.BirthDate,
       Email: req.body.Email,
       Password: req.body.Password,
+      SSO: req.body.SSO,
       Id: req.body.Id,
     });
   

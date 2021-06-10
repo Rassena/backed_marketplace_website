@@ -18,4 +18,7 @@ module.exports = app => {
   
     // Create a new Purchase
     app.delete("/purchases", purchases.deleteAll);
+
+     // Pay for Purchase
+     //app.put("/purchases/:purchaseId", purchases.pay);
   };

@@ -6,6 +6,8 @@ const Purchase = function(purchase) {
   this.Id = purchase.Id;
   this.UserId = purchase.UserId;
   this.AdId = purchase.AdId;
+  this.Paid = purchase.Paid;
+
 };
 
 Purchase.create = (newPurchase, result) => {
@@ -55,8 +57,8 @@ Purchase.getAll = result => {
 
 Purchase.updateById = (id, purchase, result) => {
   sql.query(
-    "UPDATE purchase SET Date = ?, UserId = ?,  AdId = ? WHERE id = ?",
-    [purchase.Date, purchase.UserId, purchase.AdId, id],
+    "UPDATE purchase SET Date = ?, UserId = ?,  AdId = ? Paid = ? WHERE id = ?",
+    [purchase.Date, purchase.UserId, purchase.AdId, purchase.Paid, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

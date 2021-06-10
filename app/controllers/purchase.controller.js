@@ -15,6 +15,7 @@ exports.create = (req, res) => {
       Id: req.body.Id,
       AdId: req.body.AdId,
       UserId: req.body.UserId,
+      Paid: req.body.Paid,
     });
   
     // Save Purchase in the database

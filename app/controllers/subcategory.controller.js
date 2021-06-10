@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     // Create a Subcategory
     const subcategory = new Subcategory({
       Name: req.body.Name,
+      Color: req.body.Color,
       IconUrl: req.body.IconUrl,
       CategoryName:req.body.CategoryName
     });
