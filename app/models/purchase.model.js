@@ -95,8 +95,8 @@ Purchase.pay = (id, result) => {
         return;
       }
 
-      console.log("successful paid for purchase: ", {id});
-      result(null,{id});
+      console.log("successful paid for purchase: ", {id: id});
+      result(null,{id: id });
     }
   );
 };
