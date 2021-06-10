@@ -48,11 +48,11 @@ exports.getPage = (req, res) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Category with name ${req.params.page}.`
+          message: `Not found Category with page ${req.params.page}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Category with name " + req.params.page
+          message: "Error retrieving Category with page " + req.params.page
         });
       }
     } else res.send(data);

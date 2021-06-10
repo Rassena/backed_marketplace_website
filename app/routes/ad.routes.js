@@ -7,9 +7,12 @@ module.exports = app => {
     // Retrieve all Ads
     app.get("/ads", ads.findAll);
   
+    //Retrieve Ads page n
+    app.get("/ads/:page", ads.getPage);
+
     // Retrieve a single Ad with adId
     app.get("/ads/:adId", ads.findOne);
-  
+
     // Update a Ad with adId
     app.put("/ads/:adId", ads.update);
   

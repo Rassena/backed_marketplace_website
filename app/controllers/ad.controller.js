@@ -46,6 +46,24 @@ exports.findAll = (req, res) => {
     });
   };
 
+
+// Retrieve Ads from the database by pages.
+exports.getPage = (req, res) => {
+  Category.getPage(req.params.page, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with page ${req.params.page}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad with page " + req.params.page
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 // Find a single Ad with a adId
 exports.findOne = (req, res) => {
     Ad.findById(req.params.adId, (err, data) => {

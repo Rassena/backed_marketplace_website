@@ -59,6 +59,24 @@ Ad.getAll = result => {
   });
 };
 
+Ad.getPage = (page,result) => {
+  onPage = 5;
+  sql.query(
+    "SELECT * FROM ad LIMIT ? OFFSET ?",
+    [onPage, onPage*(parseInt(page)-1)],
+   (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("ads: ", res);
+    result(null, res);
+  });
+};
+
+
 Ad.updateById = (id, ad, result) => {
   sql.query(
     "UPDATE ad SET Header = ?,  Description = ?, Price = ?, Negotiable = ?,  PostDate = ?, DueDate = ?, UserId = ?, subCategoryName = ? WHERE id = ?",
