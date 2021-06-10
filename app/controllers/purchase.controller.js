@@ -87,6 +87,34 @@ exports.update = (req, res) => {
     );
   };
 
+  // Update a Purchase identified by the purchaseId in the request
+exports.update = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  Purchase.updateById(
+    req.params.purchaseId,
+    new Purchase(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Purchase with id ${req.params.purchaseId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error updating Purchase with id " + req.params.purchaseId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
 // Delete a Purchase with the specified purchaseId in the request
 exports.delete = (req, res) => {
     Purchase.remove(req.params.purchaseId, (err, data) => {

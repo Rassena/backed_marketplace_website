@@ -78,6 +78,29 @@ Purchase.updateById = (id, purchase, result) => {
   );
 };
 
+Purchase.pay = (id, result) => {
+  sql.query(
+    "UPDATE purchase SET Paid = 1 WHERE id = ?",
+    [id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Purchase with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated purchase: ", { id: id, ...purchase });
+      result(null, { id: id, ...purchase });
+    }
+  );
+};
+
 Purchase.remove = (id, result) => {
   sql.query("DELETE FROM purchase WHERE id = ?", id, (err, res) => {
     if (err) {
