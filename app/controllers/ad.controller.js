@@ -47,6 +47,24 @@ exports.findAll = (req, res) => {
   };
 
 
+// Find a single Ad with a adId
+exports.findBetween = (req, res) => {
+  Ad.findByDates(req.params.adId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found `
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ads "
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+
 // Retrieve Ads from the database by pages.
 exports.getPage = (req, res) => {
   Category.getPage(req.params.page, (err, data) => {

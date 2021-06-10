@@ -20,5 +20,5 @@ module.exports = app => {
     app.delete("/purchases", purchases.deleteAll);
 
     //Pay for Purchase
-    app.put("/purchase/:pay", purchases.pay);
+    app.patch("/purchase/:purchaseId", purchases.pay);
   };

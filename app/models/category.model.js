@@ -40,6 +40,22 @@ Category.findByName = (categoryName, result) => {
   });
 };
 
+Category.findByColor = (categoryColor, result) => {
+  sql.query(`SELECT * FROM category WHERE Color = "${categoryColor}"`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+      console.log("found category: ", res);
+      result(null, res);
+      return;
+
+    // not found Category with the name
+    result({ kind: "not_found" }, null);
+  });
+};
+
 Category.getAll = result => {
   sql.query("SELECT * FROM category", (err, res) => {
     if (err) {

@@ -76,6 +76,25 @@ exports.findOne = (req, res) => {
     });
   };
 
+
+// Find a color Category with a categoryName
+exports.findColor = (req, res) => {
+  Category.findByColor(req.params.categoryColor, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Categorys with Color ${req.params.categoryColor}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Categorys with Color " + req.params.categoryColor
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+
 // Update a Category identified by the categoryName in the request
 exports.update = (req, res) => {
     // Validate Request

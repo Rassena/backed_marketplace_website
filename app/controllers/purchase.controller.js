@@ -87,8 +87,8 @@ exports.update = (req, res) => {
     );
   };
 
-  // Update a Purchase identified by the purchaseId in the request
-exports.update = (req, res) => {
+// pay a Purchase identified by the purchaseId in the request
+exports.pay = (req, res) => {
   // Validate Request
   if (!req.body) {
     res.status(400).send({
@@ -96,7 +96,7 @@ exports.update = (req, res) => {
     });
   }
 
-  Purchase.updateById(
+  Purchase.pay(
     req.params.purchaseId,
     new Purchase(req.body),
     (err, data) => {
@@ -114,6 +114,8 @@ exports.update = (req, res) => {
     }
   );
 };
+
+
 
 // Delete a Purchase with the specified purchaseId in the request
 exports.delete = (req, res) => {

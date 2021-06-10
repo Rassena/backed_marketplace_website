@@ -57,8 +57,8 @@ Purchase.getAll = result => {
 
 Purchase.updateById = (id, purchase, result) => {
   sql.query(
-    "UPDATE purchase SET Date = ?, UserId = ?,  AdId = ? Paid = ? WHERE id = ?",
-    [purchase.Date, purchase.UserId, purchase.AdId, purchase.Paid, id],
+    "UPDATE purchase SET Date = ?, UserId = ?,  AdId = ?, Paid = ? WHERE id = ?",
+    [purchase.Date, purchase.UserId, purchase.AdId, purchase.Paid,  parseInt(id)],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -95,8 +95,8 @@ Purchase.pay = (id, result) => {
         return;
       }
 
-      console.log("updated purchase: ", { id: id, ...purchase });
-      result(null, { id: id, ...purchase });
+      console.log("successful paid for purchase: ", {id});
+      result(null,{id});
     }
   );
 };
