@@ -1,8 +1,8 @@
 module.exports = {
-    HOST: "164.90.162.213",
+    HOST: "ip",
     //HOST: "localhost",
     PORT: "3306",
     USER: "root",
-    PASSWORD: "21UBumyFan",
+    PASSWORD: "password",
     DB: "olx_clone"
   };
