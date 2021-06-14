@@ -1,16 +1,18 @@
+//current in work
+
 const sql = require("./db.js");
 
 // constructor
-const Ad = function(ad) {
-  this.Header = ad.Header;
-  this.Description = ad.Description;
-  this.Price = ad.Price;
-  this.Negotiable = ad.Negotiable;
-  this.PostDate = ad.PostDate;
-  this.DueDate = ad.DueDate;
-  this.Id = ad.Id;
-  this.UserId = ad.UserId;
-  this.SubCategoryName = ad.SubCategoryName;
+const Ad = function(analytic) {
+  this.Header = analytic.Header;
+  this.Description = analytic.Description;
+  this.Price = analytic.Price;
+  this.Negotiable = analytic.Negotiable;
+  this.PostDate = analytic.PostDate;
+  this.DueDate = analytic.DueDate;
+  this.Id = analytic.Id;
+  this.UserId = analytic.UserId;
+  this.SubCategoryName = analytic.SubCategoryName;
 
 };
 
@@ -45,27 +47,6 @@ Ad.findById = (adId, result) => {
     result({ kind: "not_found" }, null);
   });
 };
-
-
-Ad.findByPrice = (price1,price2, result) => {
-  sql.query(`SELECT * FROM ad WHERE Price BETWEEN ${price1} AND ${price2};`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    if (res.length) {
-      console.log("found ad: ", res[0]);
-      result(null, res[0]);
-      return;
-    }
-
-    // not found Ad with the id
-    result({ kind: "not_found" }, null);
-  });
-};
-
 
 Ad.findByDates = (adId, result) => {
   sql.query(`SELECT * FROM ad WHERE id = ${adId}`, (err, res) => {

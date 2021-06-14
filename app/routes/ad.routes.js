@@ -21,4 +21,7 @@ module.exports = app => {
   
     // Create a new Ad
     app.delete("/ads", ads.deleteAll);
+
+    // Retrive Ads beetwen price price1 and price2
+    app.get("/ads/:price1/:price2",ads.findBetweenPrice);
   };

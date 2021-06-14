@@ -47,9 +47,9 @@ exports.findAll = (req, res) => {
   };
 
 
-// Find a single Ad with a adId
-exports.findBetween = (req, res) => {
-  Ad.findByDates(req.params.adId, (err, data) => {
+// Find a ads by price between price1 and price2
+exports.findBetweenPrice = (req, res) => {
+  Ad.findByPrice(req.params.price1,req.params.price2, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
