@@ -40,6 +40,25 @@ Photo.findById = (PhotoId, result) => {
   });
 };
 
+Photo.findByAdId = (AdId, result) => {
+  sql.query(`SELECT * FROM photo WHERE id = ${AdId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found photo: ", res);
+      result(null, res);
+      return;
+    }
+
+    // not found Photo with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 Photo.getAll = result => {
   sql.query("SELECT * FROM photo", (err, res) => {
     if (err) {

@@ -58,6 +58,23 @@ exports.findOne = (req, res) => {
     });
   };
 
+// Retrieve Photos by adId
+exports.findByAdId = (req, res) => {
+  Photo.findByAdId(req.params.adId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Photo with adId ${req.params.adId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Photo with adId " + req.params.adId
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 // Update a Photo identified by the photoId in the request
 exports.update = (req, res) => {
     // Validate Request

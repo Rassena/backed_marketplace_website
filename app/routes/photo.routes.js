@@ -6,6 +6,9 @@ module.exports = app => {
   
     // Retrieve all Photos
     app.get("/photos", photos.findAll);
+
+    // Retrieve a single Photo with photoId
+    app.get("/photos/ad/:adId", photos.findByAdId);
   
     // Retrieve a single Photo with photoId
     app.get("/photos/:photoId", photos.findOne);
