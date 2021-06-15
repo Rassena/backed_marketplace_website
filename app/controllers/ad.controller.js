@@ -33,7 +33,6 @@ exports.create = (req, res) => {
     });
   };
 
-
 // Retrieve all Ads from the database.
 exports.findAll = (req, res) => {
     Ad.getAll((err, data) => {
@@ -63,7 +62,6 @@ exports.findBetweenPrice = (req, res) => {
     } else res.send(data);
   });
 };
-
 
 // Retrieve Ads from the database by pages.
 exports.getPage = (req, res) => {

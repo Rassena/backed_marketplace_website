@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 // constructor
-const Photo = function(photo) {
+const Photo = function (photo) {
   this.Name = photo.Name;
   this.Url = photo.Url;
   this.Id = photo.Id;
