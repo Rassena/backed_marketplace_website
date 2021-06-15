@@ -21,4 +21,13 @@ module.exports = app => {
 
     //Pay for Purchase
     app.patch("/purchase/:purchaseId", purchases.pay);
+
+
+    //user's all purchases 
+    app.get("/purchases/user/:userId", purchases.findByUser);
+
+    
+
+
+
   };

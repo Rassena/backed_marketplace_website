@@ -45,7 +45,6 @@ exports.findAll = (req, res) => {
     });
   };
 
-
 // Find a ads by price between price1 and price2
 exports.findBetweenPrice = (req, res) => {
   Ad.findByPrice(req.params.price1,req.params.price2, (err, data) => {
@@ -65,7 +64,7 @@ exports.findBetweenPrice = (req, res) => {
 
 // Retrieve Ads from the database by pages.
 exports.getPage = (req, res) => {
-  Category.getPage(req.params.page, (err, data) => {
+  Ad.getPage(req.params.page, req.params.inPage, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -153,3 +152,16 @@ exports.deleteAll = (req, res) => {
       else res.send({ message: `All Ads were deleted successfully!` });
     });
   };
+
+
+// Retrieve all Negotiable Ads from the database.
+exports.getNegotiable = (req, res) => {
+  Ad.getNegotiable((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ads."
+      });
+    else res.send(data);
+  });
+};

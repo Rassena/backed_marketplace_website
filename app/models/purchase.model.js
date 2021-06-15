@@ -133,4 +133,26 @@ Purchase.removeAll = result => {
   });
 };
 
+
+// select * from purchase, user where purchase.userId = user.Id AND purchase.UserId = 1;
+
+Purchase.findByUser = (userId, result) => {
+  sql.query(`SELECT * FROM purchase WHERE userId = ${userId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found purchase: ", res);
+      result(null, res);
+      return;
+    }
+
+    // not found Purchase with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 module.exports = Purchase;

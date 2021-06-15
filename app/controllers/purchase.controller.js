@@ -115,8 +115,6 @@ exports.pay = (req, res) => {
   );
 };
 
-
-
 // Delete a Purchase with the specified purchaseId in the request
 exports.delete = (req, res) => {
     Purchase.remove(req.params.purchaseId, (err, data) => {
@@ -145,3 +143,21 @@ exports.deleteAll = (req, res) => {
       else res.send({ message: `All Purchases were deleted successfully!` });
     });
   };
+
+// Retrieve user's all Purchases from the database.
+exports.findByUser = (req, res) => {
+  Purchase.findByUser(req.params.userId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Purchase with id ${req.params.purchaseId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Purchase with id " + req.params.purchaseId
+        });
+      }
+    } else res.send(data);
+  });
+};
+

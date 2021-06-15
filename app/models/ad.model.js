@@ -56,8 +56,8 @@ Ad.findByPrice = (price1,price2, result) => {
     }
 
     if (res.length) {
-      console.log("found ad: ", res[0]);
-      result(null, res[0]);
+      console.log("found ad: ", res);
+      result(null, res);
       return;
     }
 
@@ -87,7 +87,6 @@ Ad.findByDates = (adId, result) => {
 };
 
 
-
 Ad.getAll = result => {
   sql.query("SELECT * FROM ad", (err, res) => {
     if (err) {
@@ -101,8 +100,8 @@ Ad.getAll = result => {
   });
 };
 
-Ad.getPage = (page,result) => {
-  onPage = 5;
+Ad.getPage = (page,inPage,result) => {
+  onPage = parseInt(inPage);
   sql.query(
     "SELECT * FROM ad LIMIT ? OFFSET ?",
     [onPage, onPage*(parseInt(page)-1)],
@@ -170,6 +169,20 @@ Ad.removeAll = result => {
     }
 
     console.log(`deleted ${res.affectedRows} ads`);
+    result(null, res);
+  });
+};
+
+
+Ad.getNegotiable = result => {
+  sql.query("SELECT * FROM ad WHERE Negotiable = 1;", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("ads: ", res);
     result(null, res);
   });
 };

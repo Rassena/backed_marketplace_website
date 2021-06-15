@@ -3,7 +3,6 @@ const sql = require("./db.js");
 // constructor
 const Subcategory = function(subcategory) {
   this.Name = subcategory.Name;
-  this.Color = subcategory.Color;
   this.IconUrl = subcategory.IconUrl;
   this.CategoryName = subcategory.CategoryName;
 };
@@ -55,8 +54,8 @@ Subcategory.getAll = result => {
 
 Subcategory.updateByName = (name, subcategory, result) => {
   sql.query(
-    "UPDATE category SET Name = ?, IconUrl = ?, CategoryName = ?, Color = ? WHERE name = ?",
-    [subcategory.Name, subcategory.IconUrl, subcategory.CategoryName, subcategory.Color, name],
+    "UPDATE category SET Name = ?, IconUrl = ?, CategoryName = ? WHERE name = ?",
+    [subcategory.Name, subcategory.IconUrl, subcategory.CategoryName, name],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
