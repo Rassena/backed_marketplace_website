@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
 
 // Retrieve Categorys from the database by pages.
 exports.getPage = (req, res) => {
-  Category.getPage(req.params.page, (err, data) => {
+  Category.getPage(req.params.page,req.params.inPage, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -77,7 +77,7 @@ exports.findOne = (req, res) => {
   };
 
 
-// Find a color Category with a categoryName
+// Retrieve Categorys by categoryColor
 exports.findColor = (req, res) => {
   Category.findByColor(req.params.categoryColor, (err, data) => {
     if (err) {

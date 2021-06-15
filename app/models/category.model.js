@@ -69,8 +69,8 @@ Category.getAll = result => {
   });
 };
 
-Category.getPage = (page,result) => {
-  onPage = 5;
+Category.getPage = (page,inPage,result) => {
+  onPage = parseInt(inPage);
   sql.query(
     "SELECT * FROM category LIMIT ? OFFSET ?",
     [onPage, onPage*(parseInt(page)-1)],

@@ -7,11 +7,11 @@ module.exports = app => {
     // Retrieve all Categorys
     app.get("/categorys", categorys.findAll);
 
-    //Retrieve n Categorys by page
-    app.get("/categorys/page/:page", categorys.getPage);
+    //Retrieve inPage Categorys by page
+    app.get("/categorys/page/:page/:inPage", categorys.getPage);
   
     // Retrieve a single Category with categoryName
-    //app.get("/categorys/:categoryName", categorys.findOne);
+    app.get("/category/:categoryName", categorys.findOne);
   
     // Retrieve a single Category with categoryName
     app.get("/categorys/:categoryColor", categorys.findColor);
