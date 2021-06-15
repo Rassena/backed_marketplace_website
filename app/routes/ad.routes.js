@@ -19,6 +19,9 @@ module.exports = app => {
     //Retrieve Ads by subcategory name
     app.get("/ads/subcategory/:subCategoryName", ads.getBySubCategory);
 
+    //Retrieve Ads by user id
+    app.get("/ads/user/:userId", ads.findByUserId);
+
     // Retrieve all Ads with photo url
     app.get("/ads/photo", ads.findAllWithPhoto);
 

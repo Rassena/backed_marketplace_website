@@ -214,3 +214,21 @@ exports.getBySubCategory = (req, res) => {
     } else res.send(data);
   });
 };
+
+
+// Find all Ads with userId 
+exports.findByUserId = (req, res) => {
+  Ad.findByUserId(req.params.userId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with user id ${req.params.userId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad user id " + req.params.userId
+        });
+      }
+    } else res.send(data);
+  });
+};

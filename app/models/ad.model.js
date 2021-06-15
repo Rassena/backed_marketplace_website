@@ -222,4 +222,23 @@ Ad.getBySubCategory = (subCategoryName, result) => {
 };
 
 
+Ad.findByUserId = (userId, result) => {
+  sql.query(`SELECT * FROM ad WHERE  UserId = ${userId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found ad: ", res);
+      result(null, res)
+      return;
+    }
+
+    // not found Ad with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 module.exports = Ad;
