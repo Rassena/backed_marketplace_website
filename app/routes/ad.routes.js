@@ -6,9 +6,12 @@ module.exports = app => {
   
     // Retrieve all Ads
     app.get("/ads", ads.findAll);
-  
-    //Retrieve Ads page n
-    app.get("/ads/:page", ads.getPage);
+
+    // Retrive all negotiable ads
+    app.get("/ads/negotiable",ads.getNegotiable);
+
+    //Retrieve inPage Ads by page 
+    app.get("/ads/page/:page/:inPage", ads.getPage);
 
     // Retrieve a single Ad with adId
     app.get("/ads/:adId", ads.findOne);
@@ -22,6 +25,15 @@ module.exports = app => {
     // Create a new Ad
     app.delete("/ads", ads.deleteAll);
 
+
     // Retrive Ads beetwen price price1 and price2
     app.get("/ads/:price1/:price2",ads.findBetweenPrice);
+
+    
+
+
+
+
+
+
   };
