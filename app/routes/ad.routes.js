@@ -16,7 +16,10 @@ module.exports = app => {
     //Retrieve Ads by subcategory name
     app.get("/ads/subcategory/:subCategoryName", ads.getBySubCategory);
 
-    // Retrieve a single Ad with adId
+    // Retrieve all Ads with photo url
+    app.get("/ads/photo", ads.findAllWithPhoto);
+
+    // Retrieve a single Ad by adId
     app.get("/ads/:adId", ads.findOne);
 
     // Update a Ad with adId

@@ -46,6 +46,25 @@ Ad.findById = (adId, result) => {
   });
 };
 
+Ad.findAlldWithPhoto = (result) => {
+  sql.query(`SELECT ad.*, photo.Url FROM ad ,photo WHERE ad.id = photo.AdId`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found ad: ", res);
+      result(null, res);
+      return;
+    }
+
+    // not found Ad with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 
 Ad.findByPrice = (price1,price2, result) => {
   sql.query(`SELECT * FROM ad WHERE Price BETWEEN ${price1} AND ${price2};`, (err, res) => {

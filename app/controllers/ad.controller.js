@@ -79,7 +79,7 @@ exports.getPage = (req, res) => {
   });
 };
 
-// Find a single Ad with a adId
+// Find a single Ad by a adId
 exports.findOne = (req, res) => {
     Ad.findById(req.params.adId, (err, data) => {
       if (err) {
@@ -95,6 +95,19 @@ exports.findOne = (req, res) => {
       } else res.send(data);
     });
   };
+
+// Find  all Ads with photo url
+exports.findAllWithPhoto = (req, res) => {
+  Ad.findAlldWithPhoto((err, data) => {
+    if (err)
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving ads."
+    });
+  else res.send(data);
+});
+};
+
 
 // Update a Ad identified by the adId in the request
 exports.update = (req, res) => {
