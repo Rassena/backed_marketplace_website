@@ -10,6 +10,9 @@ module.exports = app => {
     // Retrive all negotiable ads
     app.get("/ads/negotiable",ads.getNegotiable);
 
+    // Retrive ads by PostDates
+    app.get("/ads/date/:postDate1/:postDate2",ads.getByDates);
+
     //Retrieve inPage Ads by page 
     app.get("/ads/page/:page/:inPage", ads.getPage);
 

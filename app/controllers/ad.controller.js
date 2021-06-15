@@ -34,16 +34,35 @@ exports.create = (req, res) => {
   };
 
 // Retrieve all Ads from the database.
-exports.findAll = (req, res) => {
-    Ad.getAll((err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving ads."
-        });
-      else res.send(data);
+exports.getByDates = (req, res) => {
+    Ad.findByDates(req.params.postDate1, req.params.postDate2, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found `
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Ads "
+          });
+        }
+      } else res.send(data);
     });
   };
+  
+
+// Retrieve all Ads from the database.
+exports.findAll = (req, res) => {
+  Ad.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ads."
+      });
+    else res.send(data);
+  });
+};
+
 
 // Find a ads by price between price1 and price2
 exports.findBetweenPrice = (req, res) => {
@@ -178,8 +197,6 @@ exports.getNegotiable = (req, res) => {
     else res.send(data);
   });
 };
-
-
 
 // Find a Ads with a subCategoryName
 exports.getBySubCategory = (req, res) => {

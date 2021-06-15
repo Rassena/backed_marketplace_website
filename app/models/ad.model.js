@@ -11,7 +11,6 @@ const Ad = function(ad) {
   this.Id = ad.Id;
   this.UserId = ad.UserId;
   this.SubCategoryName = ad.SubCategoryName;
-
 };
 
 Ad.create = (newAd, result) => {
@@ -74,7 +73,7 @@ Ad.findByPrice = (price1,price2, result) => {
       return;
     }
 
-    if (res.length) {
+    if (res.length>0) {
       console.log("found ad: ", res);
       result(null, res);
       return;
@@ -86,22 +85,19 @@ Ad.findByPrice = (price1,price2, result) => {
 };
 
 
-Ad.findByDates = (adId, result) => {
-  sql.query(`SELECT * FROM ad WHERE id = ${adId}`, (err, res) => {
+Ad.findByDates = (postDate1, postDate2, result) => {
+  sql.query(
+    'select * from ad where PostDate BETWEEN ? AND ?;',
+    [postDate1, postDate2],
+(err, res) => {
     if (err) {
       console.log("error: ", err);
-      result(err, null);
+      result(null, err);
       return;
     }
 
-    if (res.length) {
-      console.log("found ad: ", res[0]);
-      result(null, res[0]);
-      return;
-    }
-
-    // not found Ad with the id
-    result({ kind: "not_found" }, null);
+    console.log("ads: ", res);
+    result(null, res);
   });
 };
 
