@@ -1,2 +1,3 @@
 database-dump.sql
 app/config/
+public/images/*.png
