@@ -3,11 +3,21 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+const router = require('./router');
+
+
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//uploading files front
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.use('/upload', router);
+
 
 // simple route
 app.get("/", (req, res) => {
