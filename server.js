@@ -18,6 +18,10 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use('/upload', router);
 
+//add cors
+app.use(cors());
+
+
 
 // simple route
 app.get("/", (req, res) => {
