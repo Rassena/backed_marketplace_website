@@ -6,7 +6,7 @@ VOLUME /tmp
 
 COPY . .
 
-RUN npm install
+RUN npm install -f
 
 EXPOSE 3000
 
