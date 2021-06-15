@@ -33,7 +33,7 @@ exports.create = (req, res) => {
     });
   };
 
-// Retrieve all Ads from the database.
+// Retrieve Ads by dates.
 exports.getByDates = (req, res) => {
     Ad.findByDates(req.params.postDate1, req.params.postDate2, (err, data) => {
       if (err) {

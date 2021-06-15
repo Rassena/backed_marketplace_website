@@ -35,6 +35,7 @@ require("./app/routes/subcategory.routes.js")(app);
 require("./app/routes/photo.routes.js")(app);
 require("./app/routes/purchase.routes.js")(app);
 require("./app/routes/ad.routes.js")(app);
+require("./app/routes/analytic.routes.js")(app);
 
 
 // set port, listen for requests
