@@ -27,5 +27,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rassena/nodejs-express-mysql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rassena/nodejs-express-mysql/issues"
+  },
+  "homepage": "https://github.com/Rassena/nodejs-express-mysql#readme"
 }
