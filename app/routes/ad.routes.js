@@ -13,6 +13,9 @@ module.exports = app => {
     //Retrieve inPage Ads by page 
     app.get("/ads/page/:page/:inPage", ads.getPage);
 
+    //Retrieve Ads by subcategory name
+    app.get("/ads/subcategory/:subCategoryName", ads.getBySubCategory);
+
     // Retrieve a single Ad with adId
     app.get("/ads/:adId", ads.findOne);
 

@@ -165,3 +165,22 @@ exports.getNegotiable = (req, res) => {
     else res.send(data);
   });
 };
+
+
+
+// Find a Ads with a subCategoryName
+exports.getBySubCategory = (req, res) => {
+  Ad.getBySubCategory(req.params.subCategoryName, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with sub category ${req.params.subCategoryName}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad with sub category " + req.params.subCategoryName
+        });
+      }
+    } else res.send(data);
+  });
+};
