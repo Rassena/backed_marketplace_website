@@ -138,7 +138,7 @@ Purchase.removeAll = result => {
 // select * from purchase, user where purchase.UserSso = user.Id AND purchase.UserSso = 1;
 
 Purchase.findByUserSso = (userSso, result) => {
-  sql.query(`SELECT * FROM purchase WHERE UserSso = ${userSso}`, (err, res) => {
+  sql.query(`SELECT * FROM purchase WHERE UserSso = "${userSso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
