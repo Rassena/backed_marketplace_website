@@ -24,8 +24,8 @@ User.create = (newUser, result) => {
   });
 };
 
-User.findById = (userId, result) => {
-  sql.query(`SELECT * FROM user WHERE Sso = "${userId}"`, (err, res) => {
+User.findById = (sso, result) => {
+  sql.query(`SELECT * FROM user WHERE SSO = "${sso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -56,10 +56,10 @@ User.getAll = result => {
   });
 };
 
-User.updateById = (id, user, result) => {
+User.updateById = (sso, user, result) => {
   sql.query(
-    "UPDATE user SET Name = ?, LastName = ?,  BirthDate = ?, Email = ?, Password = ?, SSO = ? WHERE id = ?",
-    [user.Name, user.LastName, user.BirthDate, user.Email,user.Password, user.Sso, id],
+    'UPDATE user SET Name = "?", LastName = "?",  BirthDate = ?, Email = "?", Password = "?" WHERE SSO = "?"',
+    [user.Name, user.LastName, user.BirthDate, user.Email,user.Password, user.Sso, sso],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -79,8 +79,8 @@ User.updateById = (id, user, result) => {
   );
 };
 
-User.remove = (id, result) => {
-  sql.query("DELETE FROM user WHERE id = ?", id, (err, res) => {
+User.remove = (sso, result) => {
+  sql.query("DELETE FROM user WHERE SSO = ?", sso, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -93,7 +93,7 @@ User.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted user with id: ", id);
+    console.log("deleted user with SSO: ", sso);
     result(null, res);
   });
 };

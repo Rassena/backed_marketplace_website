@@ -44,24 +44,24 @@ exports.findAll = (req, res) => {
     });
   };
 
-// Find a single User with a userId
+// Find a single User with a sso
 exports.findOne = (req, res) => {
-    User.findById(req.params.userId, (err, data) => {
+    User.findById(req.params.sso, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found User with id ${req.params.userId}.`
+            message: `Not found User with id ${req.params.sso}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving User with id " + req.params.userId
+            message: "Error retrieving User with id " + req.params.sso
           });
         }
       } else res.send(data);
     });
   };
 
-// Update a User identified by the userId in the request
+// Update a User identified by the sso in the request
 exports.update = (req, res) => {
     // Validate Request
     if (!req.body) {
@@ -71,17 +71,17 @@ exports.update = (req, res) => {
     }
   
     User.updateById(
-      req.params.userId,
+      req.params.sso,
       new User(req.body),
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not found User with id ${req.params.userId}.`
+              message: `Not found User with id ${req.params.sso}.`
             });
           } else {
             res.status(500).send({
-              message: "Error updating User with id " + req.params.userId
+              message: "Error updating User with id " + req.params.sso
             });
           }
         } else res.send(data);
@@ -89,17 +89,17 @@ exports.update = (req, res) => {
     );
   };
 
-// Delete a User with the specified userId in the request
+// Delete a User with the specified sso in the request
 exports.delete = (req, res) => {
-    User.remove(req.params.userId, (err, data) => {
+    User.remove(req.params.sso, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found User with id ${req.params.userId}.`
+            message: `Not found User with id ${req.params.sso}.`
           });
         } else {
           res.status(500).send({
-            message: "Could not delete User with id " + req.params.userId
+            message: "Could not delete User with id " + req.params.sso
           });
         }
       } else res.send({ message: `User was deleted successfully!` });
