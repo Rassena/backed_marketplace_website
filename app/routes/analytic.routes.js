@@ -7,8 +7,12 @@ module.exports = app => {
     // Calculate ration negotiable/noNegotiable
     app.get("/analytics/ration/", analytics.rationAd);
 
-    // Count paid ad 
-    //app.get("/analytics/count/ad/paid", analytics.countAdPaid);
+    // Show ad by Paid status 
+    app.get("/analytics/count/ad/paid", analytics.countAdByPaid);
+
+    // Show ad by Expire status 
+    //app.get("/analytics/count/ad/expire", analytics.countAdPaid);
+
 
     // Count ended ad (paid or expired) 
     //app.get("/analytics/count/ad/ended", analytics.countAdEnded);
@@ -17,6 +21,6 @@ module.exports = app => {
      app.get("/analytics/count/AdInCategory", analytics.countAdInCategory);
 
     // Count all rows in tableName eg ad
-    app.get("/analytics/count/:tableName", analytics.countAll);
+    app.get("/analytics/count/:tableName/all", analytics.countAll);
 
   };

@@ -28,7 +28,8 @@ Analytic.countAll = (tableName, result) => {
 };
 
 Analytic.countAdInCategory = result => {
-  sql.query(`select SubCategoryName, count(*) as Count from ad group by SubCategoryName;`, (err, res) => {
+  sql.query(`SELECT SubcategoryName ,Count(Price) as 'Count', Sum(Price) as 'Sum', (Sum(Price)/count(Price)) as 'Average' FROM ad  LEFT JOIN purchase ON ad.Id = purchase.adId group by SubCategoryName;
+  `, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -40,6 +41,19 @@ Analytic.countAdInCategory = result => {
   });
 };
 
+Analytic.countAdByPaid = result => {
+  sql.query(`SELECT Paid ,Count(Price) as 'Count', Sum(Price) as 'Sum', (Sum(Price)/count(Price)) as 'Average' FROM ad  LEFT JOIN purchase ON ad.Id = purchase.adId group by Paid;
+  `, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("ads: ", res);
+    result(null, res);
+  });
+};
 
 Analytic.rationAd = (result) => {
   sql.query(`select ((SELECT COUNT(*)FROM ad WHERE Negotiable = true)/( SELECT COUNT(*)fROM ad)) AS AdNegotaible,

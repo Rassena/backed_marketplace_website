@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     // Create a Purchase
     const purchase = new Purchase({
       Date: req.body.Date,
-      Id: req.body.Id,
       AdId: req.body.AdId,
       UserSso: req.body.UserSso,
       Paid: req.body.Paid,
