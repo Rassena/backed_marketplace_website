@@ -50,15 +50,15 @@ module.exports = app => {
     app.get("/ads/photo", ads.findAllWithPhoto);
 
     // Retrieve a single Ad by adId
-    app.get("/ads/:adId", ads.findOne);
+    app.get("/ad/:adId", ads.findOne);
 
     // Update a Ad with adId
-    app.put("/ads/:adId", ads.update);
+    app.put("/ad/:adId", ads.update);
   
     // Delete a Ad with adId
-    app.delete("/ads/:adId", ads.delete);
+    app.delete("/ad/:adId", ads.delete);
   
-    // Create a new Ad
+    // Delete all ads
     app.delete("/ads", ads.deleteAll);
 
 
