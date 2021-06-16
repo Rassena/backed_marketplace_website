@@ -29,6 +29,11 @@ module.exports = app => {
     // Retrive all negotiable ads
     app.get("/ads/negotiable",ads.getNegotiable);
 
+    
+    // Retrive all negotiable ads
+    //app.get("/ads/negotiable",ads.getNegotiable);
+
+
     // Retrive ads by PostDates
     app.get("/ads/date/:postDate1/:postDate2",ads.getByDates);
 

@@ -184,8 +184,8 @@ Ad.getAllActiveByUserSso = (userSso, result) => {
     }
 
     if (res.length) {
-      console.log("found ad: ", res[0]);
-      result(null, res[0]);
+      console.log("found ad: ", res);
+      result(null, res);
       return;
     }
 
