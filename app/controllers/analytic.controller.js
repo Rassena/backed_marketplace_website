@@ -54,3 +54,16 @@ exports.countAdByPaid = (req, res) => {
 });
 };
 
+// Count ads by Expire Status
+exports.countAdByExpired = (req, res) => {
+  Analytic.countAdByExpired((err, data) => {
+    if (err)
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving ads."
+    });
+  else res.send(data);
+});
+};
+
+

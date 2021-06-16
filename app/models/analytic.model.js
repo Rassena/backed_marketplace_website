@@ -55,6 +55,21 @@ Analytic.countAdByPaid = result => {
   });
 };
 
+Analytic.countAdByExpired = result => {
+  sql.query(`select (if(now()>DueDate,true,false)) as 'Expired',Count(Price) as 'Count',Sum(Price) as 'Sum', (Sum(Price)/count(Price)) as 'Average' from ad group by DueDate;
+
+  `, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("ads: ", res);
+    result(null, res);
+  });
+};
+
 Analytic.rationAd = (result) => {
   sql.query(`select ((SELECT COUNT(*)FROM ad WHERE Negotiable = true)/( SELECT COUNT(*)fROM ad)) AS AdNegotaible,
   ((SELECT COUNT(*)FROM ad WHERE Negotiable = false)/( SELECT COUNT(*)fROM ad)) AS AdNoNegotaible;`, (err, res) => {

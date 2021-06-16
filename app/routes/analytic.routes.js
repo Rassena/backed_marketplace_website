@@ -11,8 +11,7 @@ module.exports = app => {
     app.get("/analytics/count/ad/paid", analytics.countAdByPaid);
 
     // Show ad by Expire status 
-    //app.get("/analytics/count/ad/expire", analytics.countAdPaid);
-
+    app.get("/analytics/count/ad/expire", analytics.countAdByExpired);
 
     // Count ended ad (paid or expired) 
     //app.get("/analytics/count/ad/ended", analytics.countAdEnded);
