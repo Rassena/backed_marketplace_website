@@ -20,6 +20,7 @@ exports.create = (req, res) => {
       Id: req.body.Id,
       UserId: req.body.UserId,
       SubCategoryName: req.body.SubCategoryName,
+      UserSso: req.body.UserSso,
     });
   
     // Save Ad in the database
@@ -54,6 +55,42 @@ exports.getByDates = (req, res) => {
 // Retrieve all Ads from the database.
 exports.findAll = (req, res) => {
   Ad.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ads."
+      });
+    else res.send(data);
+  });
+};
+
+// Retrieve all active Ads.
+exports.getAllActive = (req, res) => {
+  Ad.getAllActive((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ads."
+      });
+    else res.send(data);
+  });
+};
+
+// Retrieve all paid Ads.
+exports.getAllPaid = (req, res) => {
+  Ad.getAllPaid((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ads."
+      });
+    else res.send(data);
+  });
+};
+
+// Retrieve all expired Ads.
+exports.getAllExpired = (req, res) => {
+  Ad.getAllExpired((err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -227,6 +264,59 @@ exports.findByUserId = (req, res) => {
       } else {
         res.status(500).send({
           message: "Error retrieving Ad user id " + req.params.userId
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+
+// Find all  paid Ads by UserSso 
+exports.getAllPaidByUserSso = (req, res) => {
+  Ad.getAllPaidByUserSso(req.params.userSso, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with user sso ${req.params.UserSso}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad user sso " + req.params.UserSso
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+// Find all  expired Ads by UserSso 
+exports.getAllExpiredByUserSso = (req, res) => {
+  Ad.getAllExpiredByUserSso(req.params.userSso, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with user sso ${req.params.UserSso}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad user sso " + req.params.UserSso
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+
+// Find all  active Ads by UserSso 
+exports.getAllActiveByUserSso = (req, res) => {
+  Ad.getAllActiveByUserSso(req.params.userSso, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Ad with user sso ${req.params.userSso}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Ad user sso " + req.params.userSso
         });
       }
     } else res.send(data);

@@ -7,8 +7,7 @@ const User = function(user) {
   this.BirthDate = user.BirthDate;
   this.Email = user.Email;
   this.Password = user.Password;
-  this.Sso = user.Sso;
-  this.Id = user.Id;
+  this.SSO = user.SSO;
 };
 
 User.create = (newUser, result) => {
@@ -56,10 +55,10 @@ User.getAll = result => {
   });
 };
 
-User.updateById = (sso, user, result) => {
+User.updateBySso = (sso, user, result) => {
   sql.query(
     'UPDATE user SET Name = "?", LastName = "?",  BirthDate = ?, Email = "?", Password = "?" WHERE SSO = "?"',
-    [user.Name, user.LastName, user.BirthDate, user.Email,user.Password, user.Sso, sso],
+    [user.Name, user.LastName, user.BirthDate, user.Email,user.Password, user.SSO, sso],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

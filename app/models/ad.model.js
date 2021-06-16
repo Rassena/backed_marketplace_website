@@ -9,13 +9,15 @@ const Ad = function(ad) {
   this.PostDate = ad.PostDate;
   this.DueDate = ad.DueDate;
   this.Id = ad.Id;
-  this.UserId = ad.UserId;
   this.SubCategoryName = ad.SubCategoryName;
+  this.UserSso = ad.UserSso;
 };
 
 Ad.create = (newAd, result) => {
-  sql.query("INSERT INTO ad SET ?", newAd, (err, res) => {
-    if (err) {
+
+  sql.query("INSERT INTO ad (Header,  Description, Price, Negotiable,  PostDate, DueDate, UserSso, subCategoryName) VALUES (?,?,?,?,NOW(),DATE_ADD(NOW(), INTERVAL 7 DAY),?,?);",
+  [newAd.Header, newAd.Description, newAd.Price, newAd.Negotiable, newAd.UserSso, newAd.SubCategoryName], (err, res) => {
+  if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
@@ -103,7 +105,13 @@ Ad.findByDates = (postDate1, postDate2, result) => {
 
 
 Ad.getAll = result => {
-  sql.query("SELECT * FROM ad", (err, res) => {
+  
+
+    //sql.query("SELECT * FROM ad", (err, res) => {
+    sql.query(" select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId;", (err, res) => {
+
+
+
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -114,6 +122,113 @@ Ad.getAll = result => {
     result(null, res);
   });
 };
+
+Ad.getAllActive = result => {
+  //sql.query("SELECT * FROM ad", (err, res) => {
+  sql.query('select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where if(Now()<ad.DueDate and Paid is not true, true, false) = true;',
+   (err, res) => {
+  if (err) {
+    console.log("error: ", err);
+    result(null, err);
+    return;
+  }
+
+  console.log("ads: ", res);
+  result(null, res);
+});
+};
+
+
+Ad.getAllExpired = result => {
+  //sql.query("SELECT * FROM ad", (err, res) => {
+  sql.query('select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where if(Now()>ad.DueDate, true, false) = true;',
+   (err, res) => {
+  if (err) {
+    console.log("error: ", err);
+    result(null, err);
+    return;
+  }
+
+  console.log("ads: ", res);
+  result(null, res);
+});
+};
+
+Ad.getAllPaid = result => {
+  //sql.query("SELECT * FROM ad", (err, res) => {
+  sql.query('select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where Paid = true;',
+   (err, res) => {
+  if (err) {
+    console.log("error: ", err);
+    result(null, err);
+    return;
+  }
+
+  console.log("ads: ", res);
+  result(null, res);
+});
+};
+
+
+
+
+
+Ad.getAllActiveByUserSso = (userSso, result) => {
+  sql.query('select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where if(Now()<ad.DueDate and Paid is not true, true, false) = true and ad.UserSso = ?;',
+   [userSso],
+    (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found ad: ", res[0]);
+      result(null, res[0]);
+      return;
+    }
+
+    // not found Ad with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
+
+Ad.getAllPaidByUserSso = (userSso, result) => {
+  //sql.query("SELECT * FROM ad", (err, res) => {
+  sql.query(
+    'select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where Paid = true and ad.UserSso = ?;',
+   [userSso],
+  (err, res) => {
+  if (err) {
+    console.log("error: ", err);
+    result(null, err);
+    return;
+  }
+
+  console.log("ads: ", res);
+  result(null, res);
+});
+};
+
+Ad.getAllExpiredByUserSso = (userSso, result) => {
+  //sql.query("SELECT * FROM ad", (err, res) => {
+  sql.query(
+    'select ad.*, Paid, Date, if(Now()>ad.DueDate, true, false) as Expired from ad left join purchase on ad.Id=purchase.AdId where if(Now()>ad.DueDate, true, false) = true and ad.UserSso = ?;',
+   [userSso],
+  (err, res) => {
+  if (err) {
+    console.log("error: ", err);
+    result(null, err);
+    return;
+  }
+
+  console.log("ads: ", res);
+  result(null, res);
+});
+};
+
 
 Ad.getPage = (page,inPage,result) => {
   onPage = parseInt(inPage);
@@ -135,8 +250,8 @@ Ad.getPage = (page,inPage,result) => {
 
 Ad.updateById = (id, ad, result) => {
   sql.query(
-    "UPDATE ad SET Header = ?,  Description = ?, Price = ?, Negotiable = ?,  PostDate = ?, DueDate = ?, UserId = ?, subCategoryName = ? WHERE id = ?",
-    [ad.Header, ad.Description, ad.Price, ad.Negotiable, ad.PostDate, ad.DueDate, ad.UserId, ad.SubCategoryName, id],
+    "UPDATE ad SET Header = ?,  Description = ?, Price = ?, Negotiable = ?,  PostDate = ?, DueDate = ?, UserSso = ?, subCategoryName = ? WHERE id = ?",
+    [ad.Header, ad.Description, ad.Price, ad.Negotiable, ad.PostDate, ad.DueDate, ad.UserSso, ad.SubCategoryName, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -222,8 +337,8 @@ Ad.getBySubCategory = (subCategoryName, result) => {
 };
 
 
-Ad.findByUserId = (userId, result) => {
-  sql.query(`SELECT * FROM ad WHERE  UserId = ${userId}`, (err, res) => {
+Ad.findByUserSso = (userSso, result) => {
+  sql.query(`SELECT * FROM ad WHERE  UserSso = ${userSso}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

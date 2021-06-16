@@ -7,6 +7,25 @@ module.exports = app => {
     // Retrieve all Ads
     app.get("/ads", ads.findAll);
 
+    // Retrieve all active Ads
+    app.get("/ads/active", ads.getAllActive);
+
+    // Retrieve active Ads by userSso
+    app.get("/ads/active/:userSso", ads.getAllActiveByUserSso);
+
+    // Retrieve all expired Ads
+    app.get("/ads/expired", ads.getAllExpired);
+
+    // Retrieve all paid Ads
+    app.get("/ads/paid", ads.getAllPaid);
+
+    // Retrieve expired Ads by userSso
+    app.get("/ads/expired/:userSso", ads.getAllExpiredByUserSso);
+
+    // Retrieve paid Ads by userSso
+    app.get("/ads/paid/:userSso", ads.getAllPaidByUserSso);
+
+
     // Retrive all negotiable ads
     app.get("/ads/negotiable",ads.getNegotiable);
 

@@ -4,14 +4,15 @@ const sql = require("./db.js");
 const Purchase = function(purchase) {
   this.Date = purchase.Date;
   this.Id = purchase.Id;
-  this.UserId = purchase.UserId;
+  this.UserSso = purchase.UserSso;
   this.AdId = purchase.AdId;
   this.Paid = purchase.Paid;
 
 };
 
 Purchase.create = (newPurchase, result) => {
-  sql.query("INSERT INTO purchase SET ?", newPurchase, (err, res) => {
+  sql.query("UPDATE purchase SET Date = ?, UserSso = ?,  AdId = ?, Paid = ? WHERE id = ?",
+  [purchase.UserSso, purchase.AdId, purchase.Paid,  parseInt(id)], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -57,8 +58,8 @@ Purchase.getAll = result => {
 
 Purchase.updateById = (id, purchase, result) => {
   sql.query(
-    "UPDATE purchase SET Date = ?, UserId = ?,  AdId = ?, Paid = ? WHERE id = ?",
-    [purchase.Date, purchase.UserId, purchase.AdId, purchase.Paid,  parseInt(id)],
+    "UPDATE purchase SET Date = ?, UserSso = ?,  AdId = ?, Paid = ? WHERE id = ?",
+    [purchase.Date, purchase.UserSso, purchase.AdId, purchase.Paid,  parseInt(id)],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -134,10 +135,10 @@ Purchase.removeAll = result => {
 };
 
 
-// select * from purchase, user where purchase.userId = user.Id AND purchase.UserId = 1;
+// select * from purchase, user where purchase.UserSso = user.Id AND purchase.UserSso = 1;
 
-Purchase.findByUser = (userId, result) => {
-  sql.query(`SELECT * FROM purchase WHERE userId = ${userId}`, (err, res) => {
+Purchase.findByUserSso = (userSso, result) => {
+  sql.query(`SELECT * FROM purchase WHERE UserSso = ${userSso}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

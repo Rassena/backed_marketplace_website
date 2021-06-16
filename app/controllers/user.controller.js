@@ -16,8 +16,7 @@ exports.create = (req, res) => {
       BirthDate: req.body.BirthDate,
       Email: req.body.Email,
       Password: req.body.Password,
-      Sso: req.body.Sso,
-      Id: req.body.Id,
+      SSO: req.body.SSO,
     });
   
     // Save User in the database

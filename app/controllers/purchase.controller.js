@@ -145,16 +145,16 @@ exports.deleteAll = (req, res) => {
   };
 
 // Retrieve user's all Purchases from the database.
-exports.findByUser = (req, res) => {
-  Purchase.findByUser(req.params.userId, (err, data) => {
+exports.findByUserSso = (req, res) => {
+  Purchase.findByUserSso(req.params.userSso, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Purchase with id ${req.params.purchaseId}.`
+          message: `Not found Purchase with sso ${req.params.userSso}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Purchase with id " + req.params.purchaseId
+          message: "Error retrieving Purchase with sso " + req.params.userSso
         });
       }
     } else res.send(data);

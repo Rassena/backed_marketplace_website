@@ -1,8 +1,8 @@
 const Analytic = require("../models/analytic.model.js");
 
 // Find amount of row in tableName
-exports.count = (req, res) => {
-  Analytic.count(req.params.tableName, (err, data) => {
+exports.countAll = (req, res) => {
+  Analytic.countAll(req.params.tableName, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -15,4 +15,17 @@ exports.count = (req, res) => {
       }
     } else res.send(data);
   });
+};
+
+
+// Calculate ration negotiable/noNegotiablw
+exports.rationAd = (req, res) => {
+  Analytic.rationAd((err, data) => {
+    if (err)
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving ads."
+    });
+  else res.send(data);
+});
 };
