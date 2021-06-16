@@ -26,7 +26,7 @@ module.exports = app => {
     //user's all purchases 
     app.get("/purchases/user/:userSso", purchases.findByUserSso);
 
-    
+
 
 
 
