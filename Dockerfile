@@ -6,6 +6,7 @@ VOLUME /tmp
 
 COPY . .
 
+RUN rm -R node_modules/
 RUN npm install -g nodemon
 
 EXPOSE 3000
