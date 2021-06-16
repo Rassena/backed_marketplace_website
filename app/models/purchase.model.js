@@ -11,8 +11,8 @@ const Purchase = function(purchase) {
 };
 
 Purchase.create = (newPurchase, result) => {
-  sql.query("UPDATE purchase SET Date = ?, UserSso = ?,  AdId = ?, Paid = ? WHERE id = ?",
-  [purchase.UserSso, purchase.AdId, purchase.Paid,  parseInt(id)], (err, res) => {
+  sql.query("INSERT INTO purchase (Date, UserSso,  AdId, Paid) VALUES (NOW(),?,?,?);",
+  [newPurchase.UserSso, newPurchase.AdId, newPurchase.Paid], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

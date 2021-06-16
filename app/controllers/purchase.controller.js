@@ -14,7 +14,7 @@ exports.create = (req, res) => {
       Date: req.body.Date,
       Id: req.body.Id,
       AdId: req.body.AdId,
-      UserId: req.body.UserId,
+      UserSso: req.body.UserSso,
       Paid: req.body.Paid,
     });
   
