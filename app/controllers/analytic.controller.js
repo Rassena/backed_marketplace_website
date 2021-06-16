@@ -29,3 +29,16 @@ exports.rationAd = (req, res) => {
   else res.send(data);
 });
 };
+
+// Count ads in categorys
+exports.countAdInCategory = (req, res) => {
+  Analytic.countAdInCategory((err, data) => {
+    if (err)
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving ads."
+    });
+  else res.send(data);
+});
+};
+
