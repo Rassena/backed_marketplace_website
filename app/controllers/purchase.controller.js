@@ -88,30 +88,19 @@ exports.update = (req, res) => {
 
 // pay a Purchase identified by the purchaseId in the request
 exports.pay = (req, res) => {
-  // Validate Request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  Purchase.pay(
-    req.params.purchaseId,
-    new Purchase(req.body),
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Purchase with id ${req.params.purchaseId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error updating Purchase with id " + req.params.purchaseId
-          });
-        }
-      } else res.send(data);
-    }
-  );
+  Purchase.pay(req.params.purchaseId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Purchase with id ${req.params.purchaseId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Purchase with id " + req.params.purchaseId
+        });
+      }
+    } else res.send({ message: `Purchase was paid successfully with id  `  + req.params.purchaseId});
+  });
 };
 
 // Delete a Purchase with the specified purchaseId in the request

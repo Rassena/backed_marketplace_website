@@ -20,7 +20,7 @@ module.exports = app => {
     app.delete("/purchases", purchases.deleteAll);
 
     //Pay for Purchase
-    app.patch("/purchase/:purchaseId", purchases.pay);
+    app.put("/purchase/:purchaseId", purchases.pay);
 
 
     //user's all purchases 
