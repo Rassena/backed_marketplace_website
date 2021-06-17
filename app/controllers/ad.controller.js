@@ -253,17 +253,17 @@ exports.getBySubCategory = (req, res) => {
 };
 
 
-// Find all Ads with userId 
-exports.findByUserId = (req, res) => {
-  Ad.findByUserId(req.params.userId, (err, data) => {
+// Find all Ads with userSso 
+exports.findByUserSso = (req, res) => {
+  Ad.findByUserSso(req.params.userSso, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Ad with user id ${req.params.userId}.`
+          message: `Not found Ad with user id ${req.params.userSso}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Ad user id " + req.params.userId
+          message: "Error retrieving Ad user id " + req.params.userSso
         });
       }
     } else res.send(data);

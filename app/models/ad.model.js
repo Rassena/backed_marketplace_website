@@ -338,7 +338,7 @@ Ad.getBySubCategory = (subCategoryName, result) => {
 
 
 Ad.findByUserSso = (userSso, result) => {
-  sql.query(`SELECT * FROM ad WHERE  UserSso = ${userSso}`, (err, res) => {
+  sql.query(`SELECT * FROM ad WHERE  UserSso = "${userSso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
