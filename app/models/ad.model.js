@@ -29,7 +29,7 @@ Ad.create = (newAd, result) => {
 };
 
 Ad.findById = (adId, result) => {
-  sql.query(`SELECT * FROM ad WHERE id = ${adId}`, (err, res) => {
+  sql.query(`SELECT ad.*, Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId WHERE ad.Id = ${adId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
