@@ -6,7 +6,7 @@ VOLUME /tmp
 
 COPY . .
 
-RUN git pull https://github.com/Rassena/nodejs-express-mysql.git
+
 RUN npm install
 RUN npm install -g nodemon
 
