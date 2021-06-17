@@ -45,15 +45,15 @@ exports.findAll = (req, res) => {
 
 // Find a single User with a sso
 exports.findOne = (req, res) => {
-    User.findById(req.params.sso, (err, data) => {
+    User.findBySso(req.params.sso, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found User with id ${req.params.sso}.`
+            message: `Not found User with sso ${req.params.sso}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving User with id " + req.params.sso
+            message: "Error retrieving User with sso " + req.params.sso
           });
         }
       } else res.send(data);
@@ -69,18 +69,18 @@ exports.update = (req, res) => {
       });
     }
   
-    User.updateById(
+    User.updateBysso(
       req.params.sso,
       new User(req.body),
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not found User with id ${req.params.sso}.`
+              message: `Not found User with sso ${req.params.sso}.`
             });
           } else {
             res.status(500).send({
-              message: "Error updating User with id " + req.params.sso
+              message: "Error updating User with sso " + req.params.sso
             });
           }
         } else res.send(data);
@@ -94,11 +94,11 @@ exports.delete = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found User with id ${req.params.sso}.`
+            message: `Not found User with sso ${req.params.sso}.`
           });
         } else {
           res.status(500).send({
-            message: "Could not delete User with id " + req.params.sso
+            message: "Could not delete User with sso " + req.params.sso
           });
         }
       } else res.send({ message: `User was deleted successfully!` });

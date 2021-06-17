@@ -18,7 +18,6 @@ exports.create = (req, res) => {
       PostDate: req.body.PostDate,
       DueDate: req.body.DueDate,
       Id: req.body.Id,
-      UserId: req.body.UserId,
       SubCategoryName: req.body.SubCategoryName,
       UserSso: req.body.UserSso,
     });

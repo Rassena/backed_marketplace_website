@@ -18,12 +18,12 @@ User.create = (newUser, result) => {
       return;
     }
 
-    console.log("created user: ", { id: res.insertId, ...newUser });
-    result(null, { id: res.insertId, ...newUser });
+    console.log("created user: ", { sso: res.insertsso, ...newUser });
+    result(null, { sso: res.insertsso, ...newUser });
   });
 };
 
-User.findById = (sso, result) => {
+User.findBySso = (sso, result) => {
   sql.query(`SELECT * FROM user WHERE SSO = "${sso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -37,7 +37,7 @@ User.findById = (sso, result) => {
       return;
     }
 
-    // not found User with the id
+    // not found User with the Sso
     result({ kind: "not_found" }, null);
   });
 };
@@ -67,13 +67,13 @@ User.updateBySso = (sso, user, result) => {
       }
 
       if (res.affectedRows == 0) {
-        // not found User with the id
+        // not found User with the Sso
         result({ kind: "not_found" }, null);
         return;
       }
 
-      console.log("updated user: ", { id: id, ...user });
-      result(null, { id: id, ...user });
+      console.log("updated user: ", { sso: sso, ...user });
+      result(null, { sso: sso, ...user });
     }
   );
 };
@@ -87,7 +87,7 @@ User.remove = (sso, result) => {
     }
 
     if (res.affectedRows == 0) {
-      // not found User with the id
+      // not found User with the sso
       result({ kind: "not_found" }, null);
       return;
     }
