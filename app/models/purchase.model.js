@@ -25,7 +25,7 @@ Purchase.create = (newPurchase, result) => {
 };
 
 Purchase.findById = (purchaseId, result) => {
-  sql.query(`SELECT * FROM purchase WHERE id = ${purchaseId}`, (err, res) => {
+  sql.query(`SELECT * FROM purchase left join ad on ad.Id=purchase.AdId WHERE purchase.id = ${purchaseId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -44,7 +44,7 @@ Purchase.findById = (purchaseId, result) => {
 };
 
 Purchase.getAll = result => {
-  sql.query("SELECT * FROM purchase", (err, res) => {
+  sql.query("SELECT * FROM purchase left join ad on ad.Id=purchase.AdId", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -138,7 +138,7 @@ Purchase.removeAll = result => {
 // select * from purchase, user where purchase.UserSso = user.Id AND purchase.UserSso = 1;
 
 Purchase.findByUserSso = (userSso, result) => {
-  sql.query(`SELECT * FROM purchase WHERE UserSso = "${userSso}"`, (err, res) => {
+  sql.query(`SELECT * FROM purchase left join ad on ad.Id=purchase.AdId WHERE purchase.UserSso = "${userSso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
