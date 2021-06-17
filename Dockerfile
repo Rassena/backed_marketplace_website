@@ -11,5 +11,4 @@ RUN npm install -g nodemon
 
 EXPOSE 3000
 
-CMD [ "git", "pull", "https://github.com/Rassena/nodejs-express-mysql.git" ]
-CMD [ "npm", "start" ]
+CMD [ "git", "pull", "https://github.com/Rassena/nodejs-express-mysql.git" ,"&&", "npm", "start" ]
