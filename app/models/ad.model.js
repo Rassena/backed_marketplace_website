@@ -68,7 +68,7 @@ Ad.findAlldWithPhoto = (result) => {
 
 
 Ad.findByPrice = (price1,price2, result) => {
-  sql.query(`SELECT * FROM ad WHERE Price BETWEEN ${price1} AND ${price2};`, (err, res) => {
+  sql.query(`SELECT ad.*, Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId  WHERE Price BETWEEN ${price1} AND ${price2};`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -89,7 +89,7 @@ Ad.findByPrice = (price1,price2, result) => {
 
 Ad.findByDates = (postDate1, postDate2, result) => {
   sql.query(
-    'select * from ad where PostDate BETWEEN ? AND ?;',
+    'select ad.* Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId where PostDate BETWEEN ? AND ?;',
     [postDate1, postDate2],
 (err, res) => {
     if (err) {
@@ -233,7 +233,7 @@ Ad.getAllExpiredByUserSso = (userSso, result) => {
 Ad.getPage = (page,inPage,result) => {
   onPage = parseInt(inPage);
   sql.query(
-    "SELECT * FROM ad LIMIT ? OFFSET ?",
+    "SELECT ad.* Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId  LIMIT ? OFFSET ?",
     [onPage, onPage*(parseInt(page)-1)],
    (err, res) => {
     if (err) {
@@ -305,7 +305,7 @@ Ad.removeAll = result => {
 
 
 Ad.getNegotiable = result => {
-  sql.query("SELECT * FROM ad WHERE Negotiable = 1;", (err, res) => {
+  sql.query("SELECT ad.* Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId  WHERE ad.Negotiable = 1;", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -318,7 +318,7 @@ Ad.getNegotiable = result => {
 };
 
 Ad.getBySubCategory = (subCategoryName, result) => {
-  sql.query(`SELECT * FROM ad WHERE  SubCategoryName = "${subCategoryName}"`, (err, res) => {
+  sql.query(`SELECT ad.* Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId  WHERE  ad.SubCategoryName = "${subCategoryName}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -338,7 +338,7 @@ Ad.getBySubCategory = (subCategoryName, result) => {
 
 
 Ad.findByUserSso = (userSso, result) => {
-  sql.query(`SELECT * FROM ad WHERE  UserSso = "${userSso}"`, (err, res) => {
+  sql.query(`SELECT ad.* Paid, (if(Now()>DueDate,true,false)) as Expired FROM ad left join purchase on ad.Id=purchase.AdId  WHERE  ad.UserSso = "${userSso}"`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
