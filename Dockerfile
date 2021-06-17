@@ -1,10 +1,10 @@
 FROM node:10
 
-RUN mkdir -p /opt/app
+RUN mkdir /opt
+RUN git clone https://github.com/Rassena/nodejs-express-mysql.git
+RUN mv nodejs-express-mysql /opt/app
 WORKDIR /opt/app
 VOLUME /tmp
-
-COPY . .
 
 
 RUN npm install
